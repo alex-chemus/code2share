@@ -3,9 +3,10 @@ import s from "./ThemeSelect.module.scss";
 import { Theme } from "../../App.types";
 import themes from "../../themes";
 
-const themeOptions = ["dark", "light"]
-  .concat(Object.keys(themes))
-  .map((item) => ({ value: item, label: item }));
+const themeOptions = Object.keys(themes).map((item) => ({
+  value: item,
+  label: item,
+}));
 
 interface ThemeSelectProps {
   onChange: (theme: Theme) => void;
