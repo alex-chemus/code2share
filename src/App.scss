@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+$width: 80vw;
+$height: 80svh;
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: opacity(0.5);
+}
+
+#app-wrapper {
+  width: $width;
+  height: $height;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+  // overflow-y: scroll;
+  // overflow-x: visible;
+}
+
+.cm-line {
+  font-size: 20px;
+}
+
+.cm-content {
+  position: relative;
+}
+
+.cm-editor {
+  // overflow-y: scroll;
+}
+
+.edit-section {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 2;
+  max-height: calc(100% - 32px);
+  // overflow-y: scroll;
+
+  &__selects {
+    align-self: stretch;
+    display: flex;
+    justify-content: space-between;
+  }
+}
