@@ -2,19 +2,24 @@ import { useLocation, useNavigate } from "react-router-dom";
 // @ts-ignore
 import * as pako from "pako";
 import { UrlDataModel, Comment } from "./App.types";
+import { useReducer } from "react";
 
 export const compress = (value: string): string => {
+  /* eslint-disable */
   const u8 = pako.deflate(value);
   const binaryString = String.fromCharCode.apply(null, u8);
   return btoa(binaryString);
+  /* eslint-enable */
 };
 
 export const decompress = (value: string): string => {
+  /* eslint-disable */
   const binaryString = atob(value);
   const buff = binaryString.split("").map((char) => char.charCodeAt(0));
   const u8 = new Uint8Array(buff.length);
   buff.forEach((char, i) => (u8[i] = char));
   return pako.inflate(u8, { to: "string" });
+  /* eslint-enable */
 };
 
 export const useDataFromUrl = () => {
@@ -38,7 +43,7 @@ export const useDataToUrl = () => {
     const searchParams = new URLSearchParams();
     const encoding = compress(JSON.stringify(data));
     searchParams.set("c", encoding);
-    const newUrl = `${import.meta.env.BASE_URL}?${searchParams}`;
+    const newUrl = `${import.meta.env.BASE_URL}?${searchParams.toString()}`;
     navigate(newUrl);
   };
 };
@@ -50,4 +55,20 @@ export const sameComments = (arr1: Comment[], arr2: Comment[]) => {
       return arr2[i].line === item1.line && arr2[i].text === item1.text;
     })
   );
+};
+
+export const throttle = (fn: () => void, delay: number) => {
+  let flag = true;
+  return () => {
+    if (flag) {
+      fn();
+      flag = false;
+      setTimeout(() => (flag = true), delay);
+    }
+  };
+};
+
+// костыль, чтобы делать 2 рендера в самом начале
+export const useFirstRender = () => {
+  return useReducer(() => false, true);
 };

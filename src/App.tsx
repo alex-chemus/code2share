@@ -1,6 +1,6 @@
 import { Route, Routes, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-import CodeEditor from "@uiw/react-codemirror";
+import { useEffect, useRef, useState } from "react";
+import CodeEditor, { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import * as alls from "@uiw/codemirror-themes-all";
 import CommentPopover from "./components/CommentPopover/CommentPopover";
 import { useDataToUrl, useDataFromUrl, sameComments } from "./App.utils";
@@ -14,9 +14,12 @@ import { langs } from "@uiw/codemirror-extensions-langs";
 import { ConfigProvider } from "antd";
 import getDesignTokens from "./getDesignTokens";
 import themes from "./themes";
+import editorStore from "./stores/EditorStore";
 
 function App() {
   const location = useLocation();
+
+  const editorRef = useRef<ReactCodeMirrorRef | null>(null);
 
   const [value, setValue] = useState("");
   const [comments, setComments] = useState<Comment[]>([]);
@@ -49,6 +52,12 @@ function App() {
     appWrapper.style.border = `1px solid ${themes[theme].gutterActiveForeground}`;
   }, [theme]);
 
+  useEffect(() => {
+    if (editorRef.current) {
+      editorStore.setRef(editorRef.current);
+    }
+  }, [editorRef.current]);
+
   const handleSaveComment = (comment: Comment) => {
     valueToUrl({ value, comments: [...comments, comment], lang, theme });
   };
@@ -79,7 +88,6 @@ function App() {
   };
 
   const handleThemeChange = (_theme: Theme) => {
-    console.log(_theme);
     valueToUrl({ value, comments, lang, theme: _theme });
   };
 
@@ -96,9 +104,11 @@ function App() {
             <div id="app-wrapper">
               <div className="edit-section">
                 <CodeEditor
+                  ref={editorRef}
                   value={value}
                   onChange={handleChange}
                   onStatistics={linesStore.handleStatsUpdate}
+                  onUpdate={() => editorStore.refresh()}
                   extensions={[langs[lang]()]}
                   // @ts-ignore
                   theme={alls[theme as keyof typeof alls] || theme}

@@ -4,6 +4,8 @@ import { Comment } from "../../App.types";
 import linesStore from "../../stores/LinesStore";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import CommentFormContent from "../CommentFormContent/CommentFormContent";
+import { throttle, useFirstRender } from "../../App.utils";
+import editorStore from "../../stores/EditorStore";
 
 interface CommentPopoverProps {
   comment: Comment;
@@ -16,22 +18,51 @@ export default function CommentPopover({
   onDelete,
   onEdit,
 }: CommentPopoverProps) {
-  const [lineElement, setLineElement] = useState<Element | null>(null);
+  const [offsetTop, setOffsetTop] = useState<number | null>(null);
   const [isEditing, setIsEditing] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isFirstRender, firstRender] = useFirstRender();
+
+  useEffect(() => {
+    const handleContentScroll = throttle(() => {
+      const currentLineElem =
+        editorStore.ref?.editor?.querySelector<HTMLDivElement>(
+          `.cm-editor .cm-line:nth-child(${comment.line})`
+        );
+
+      const _isVisible =
+        (currentLineElem?.offsetTop ?? 0) >
+        (editorStore.scroller?.scrollTop ?? 0);
+
+      if (!_isVisible) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+        const _offsetTop =
+          (currentLineElem?.offsetTop ?? 0) -
+          (editorStore.scroller?.scrollTop ?? 0);
+        setOffsetTop(_offsetTop);
+      }
+    }, 5);
+
+    editorStore.scroller?.addEventListener("scroll", handleContentScroll);
+    firstRender();
+
+    return () => {
+      editorStore.scroller?.removeEventListener("scroll", handleContentScroll);
+    };
+  }, [isFirstRender]);
 
   useEffect(() => {
     setTimeout(() => {
-      setLineElement(
-        document.querySelector(`.cm-editor .cm-line:nth-child(${comment.line})`)
+      const lineElement = document.querySelector(
+        `.cm-editor .cm-line:nth-child(${comment.line})`
+      );
+      setOffsetTop(
+        !lineElement ? null : (lineElement as HTMLElement).offsetTop - 12
       );
     }, 100);
   }, [linesStore.linesCount]);
-
-  const offsetTop = useMemo(() => {
-    if (!lineElement) return;
-    // const { y } = lineElement.getBoundingClientRect();
-    return `${(lineElement as HTMLElement).offsetTop - 12}px`;
-  }, [lineElement]);
 
   const popoverContent = useMemo(
     () => (
@@ -49,7 +80,9 @@ export default function CommentPopover({
     setIsEditing(false);
   };
 
-  return lineElement ? (
+  if (!isVisible) return <></>;
+
+  return offsetTop ? (
     <Popover
       key={comment.line}
       getPopupContainer={() =>
@@ -66,9 +99,9 @@ export default function CommentPopover({
           popoverContent
         )
       }
-      open={Boolean(lineElement)}
+      open={Boolean(offsetTop)}
       overlayStyle={{
-        top: offsetTop,
+        top: `${offsetTop}px`,
         left: "30px",
       }}
     />
