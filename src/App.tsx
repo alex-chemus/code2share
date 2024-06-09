@@ -3,7 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import CodeEditor, { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import * as alls from "@uiw/codemirror-themes-all";
 import CommentPopover from "./components/CommentPopover/CommentPopover";
-import { useDataToUrl, useDataFromUrl, sameComments } from "./App.utils";
+import {
+  useDataToUrl,
+  useDataFromUrl,
+  sameComments,
+  testTheme,
+} from "./App.utils";
 import { Comment, Lang, Theme } from "./App.types";
 import LineControls from "./components/LineControls/LineControls";
 import "./App.scss";
@@ -15,6 +20,7 @@ import { ConfigProvider } from "antd";
 import getDesignTokens from "./getDesignTokens";
 import themes from "./themes";
 import editorStore from "./stores/EditorStore";
+import MainControls from "./components/MainControls/MainControls";
 
 function App() {
   const location = useLocation();
@@ -25,6 +31,7 @@ function App() {
   const [comments, setComments] = useState<Comment[]>([]);
   const [theme, setTheme] = useState<Theme>("material");
   const [lang, setLang] = useState<Lang>("c");
+  const [lineControlsOpen, setLineControlsOpen] = useState(false);
 
   const valueToUrl = useDataToUrl();
   const valueFromUrl = useDataFromUrl();
@@ -46,10 +53,12 @@ function App() {
   }, [location.search]);
 
   useEffect(() => {
+    testTheme(themes[theme]);
+
     const root = document.querySelector("#root") as HTMLElement;
-    const appWrapper = document.querySelector("#app-wrapper") as HTMLElement;
+    const cmTheme = document.querySelector<HTMLDivElement>(".cm-theme");
     root.style.backgroundColor = themes[theme].background ?? "";
-    appWrapper.style.border = `1px solid ${themes[theme].gutterActiveForeground}`;
+    if (cmTheme) cmTheme.style.border = `1px solid ${themes[theme].selection}`;
   }, [theme]);
 
   useEffect(() => {
@@ -102,6 +111,10 @@ function App() {
           path="*"
           element={
             <div id="app-wrapper">
+              <MainControls
+                sidebarOpen={lineControlsOpen}
+                onSidebarChange={setLineControlsOpen}
+              />
               <div className="edit-section">
                 <CodeEditor
                   ref={editorRef}
@@ -119,15 +132,20 @@ function App() {
                     zIndex: 999,
                   }}
                 />
-                {comments.map((comment) => (
-                  <CommentPopover
-                    key={comment.line}
-                    comment={comment}
-                    onDelete={handleDeleteComment}
-                    onEdit={handleEditComment}
-                  />
-                ))}
-                <LineControls onCommentSave={handleSaveComment} />
+                {lineControlsOpen &&
+                  comments.map((comment) => (
+                    <CommentPopover
+                      key={comment.line}
+                      comment={comment}
+                      onDelete={handleDeleteComment}
+                      onEdit={handleEditComment}
+                    />
+                  ))}
+                <LineControls
+                  sidebarOpen={lineControlsOpen}
+                  onCommentSave={handleSaveComment}
+                  onSidebarChange={setLineControlsOpen}
+                />
               </div>
               <div className="edit-section__selects">
                 <ThemeSelect onChange={handleThemeChange} value={theme} />

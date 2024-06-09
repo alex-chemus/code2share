@@ -5,10 +5,14 @@ $size: 28px;
   overflow-y: hidden;
   overflow-y: visible;
   align-self: flex-start;
-  width: $size;
-  // border: 1px solid red;
+  width: 500px;
+  height: 100%;
 
-  button {
+  &.--empty {
+    width: $size;
+  }
+
+  & > button {
     width: $size;
     height: $size;
     display: flex;
@@ -16,10 +20,8 @@ $size: 28px;
   }
 }
 
-.line-controls-content {
-  position: relative;
-  top: 0;
-  border: 1px solid blue;
+.line-controls-form {
+  width: 320px;
 }
 
 .line-control-button {

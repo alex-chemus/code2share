@@ -5,14 +5,17 @@ import themes from "./themes";
 const getDesignTokens = (theme: Theme): ThemeConfig => {
   return {
     token: {
-      colorBgBase: themes[theme].gutterBackground,
-      colorTextBase: themes[theme].gutterForeground,
-      colorPrimary: themes[theme].caret,
+      colorBgBase: themes[theme].background,
+      colorTextBase: themes[theme].foreground,
+      colorPrimary: themes[theme].lineHighlight,
       fontSize: 16,
     },
     components: {
       Select: {
         fontSize: 18,
+      },
+      Popover: {
+        colorBgElevated: themes[theme].lineHighlight,
       },
     },
   };

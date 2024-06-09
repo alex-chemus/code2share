@@ -1,4 +1,4 @@
-import { Button, Input } from "antd";
+import { Button, Flex, Input } from "antd";
 import { useEffect, useState } from "react";
 import linesStore from "../../stores/LinesStore";
 import { Comment } from "../../App.types";
@@ -30,13 +30,13 @@ function CommentFormContentComponent({
   };
 
   return (
-    <>
+    <Flex vertical gap="small" align="flex-start">
       <Input
         value={commentValue}
         onChange={(e) => setCommentValue(e.target.value)}
       />
       <Button onClick={handleCommentSave}>Comment</Button>
-    </>
+    </Flex>
   );
 }
 

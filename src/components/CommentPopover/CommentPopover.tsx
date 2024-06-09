@@ -4,8 +4,12 @@ import { Comment } from "../../App.types";
 import linesStore from "../../stores/LinesStore";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import CommentFormContent from "../CommentFormContent/CommentFormContent";
-import { throttle, useFirstRender } from "../../App.utils";
+import { throttle } from "../../App.utils";
 import editorStore from "../../stores/EditorStore";
+import s from "./CommentPopover.module.scss";
+import cx from "classnames/bind";
+
+const cn = cx.bind(s);
 
 interface CommentPopoverProps {
   comment: Comment;
@@ -21,7 +25,6 @@ export default function CommentPopover({
   const [offsetTop, setOffsetTop] = useState<number | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [isFirstRender, firstRender] = useFirstRender();
 
   useEffect(() => {
     const handleContentScroll = throttle(() => {
@@ -46,12 +49,11 @@ export default function CommentPopover({
     }, 5);
 
     editorStore.scroller?.addEventListener("scroll", handleContentScroll);
-    firstRender();
 
     return () => {
       editorStore.scroller?.removeEventListener("scroll", handleContentScroll);
     };
-  }, [isFirstRender]);
+  }, [editorStore.refresher]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -66,8 +68,8 @@ export default function CommentPopover({
 
   const popoverContent = useMemo(
     () => (
-      <Flex>
-        <div>{comment.text}</div>
+      <Flex gap="small" align="center">
+        <div className={cn("comment-text")}>{comment.text}</div>
         <Button icon={<IconTrash />} onClick={() => onDelete?.(comment.line)} />
         <Button icon={<IconEdit />} onClick={() => setIsEditing(true)} />
       </Flex>
@@ -84,6 +86,9 @@ export default function CommentPopover({
 
   return offsetTop ? (
     <Popover
+      placement="rightTop"
+      autoAdjustOverflow={false}
+      overlayClassName={cn("comment-popover")}
       key={comment.line}
       getPopupContainer={() =>
         document.querySelector(".line-controls-wrapper") as HTMLElement

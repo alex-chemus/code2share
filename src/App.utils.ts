@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { CreateThemeOptions } from "@uiw/codemirror-themes";
 // @ts-ignore
 import * as pako from "pako";
 import { UrlDataModel, Comment } from "./App.types";
-import { useReducer } from "react";
 
 export const compress = (value: string): string => {
   /* eslint-disable */
@@ -68,7 +68,20 @@ export const throttle = (fn: () => void, delay: number) => {
   };
 };
 
-// костыль, чтобы делать 2 рендера в самом начале
-export const useFirstRender = () => {
-  return useReducer(() => false, true);
+export const testTheme = (settings: CreateThemeOptions["settings"]) => {
+  /* eslint-disable no-prototype-builtins */
+  console.log(settings);
+  console.log("background", settings.hasOwnProperty("background"));
+  console.log("caret", settings.hasOwnProperty("caret"));
+  console.log("foreground", settings.hasOwnProperty("foreground"));
+  console.log(
+    "gutterActiveForeground",
+    settings.hasOwnProperty("gutterActiveForeground")
+  );
+  console.log("gutterBackground", settings.hasOwnProperty("gutterBackground"));
+  console.log("gutterForeground", settings.hasOwnProperty("gutterForeground"));
+  console.log("lineHighlight", settings.hasOwnProperty("lineHighlight"));
+  console.log("selection", settings.hasOwnProperty("selection"));
+  console.log("selectionMatch", settings.hasOwnProperty("selectionMatch"));
+  /* eslint-enable no-prototype-builtins */
 };

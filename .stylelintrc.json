@@ -1,4 +1,7 @@
 {
   "extends": ["stylelint-config-standard-scss", "stylelint-config-css-modules"],
-  "defaultSeverity": "warning"
+  "defaultSeverity": "warning",
+  "rules": {
+    "selector-class-pattern": null
+  }
 }

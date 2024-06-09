@@ -46,50 +46,50 @@ import {
 } from "@uiw/codemirror-themes-all";
 
 const themes = {
-  abyss: defaultSettingsAbyss,
-  abcdef: defaultSettingsAbcdef,
-  androidstudio: defaultSettingsAndroidstudio,
-  andromeda: defaultSettingsAndromeda,
-  atomone: defaultSettingsAtomone,
-  aura: defaultSettingsAura,
-  basicDark: defaultSettingsBasicDark,
-  basicLight: defaultSettingsBasicLight,
-  bbedit: defaultSettingsBbedit,
-  bespin: defaultSettingsBespin,
-  consoleDark: defaultSettingsConsoleDark,
-  consoleLight: defaultSettingsConsoleLight,
-  copilot: defaultSettingsCopilot,
-  dracula: defaultSettingsDracula,
-  duotoneDark: defaultSettingsDuotoneDark,
-  duotoneLight: defaultSettingsDuotoneLight,
-  eclipse: defaultSettingsEclipse,
-  githubDark: defaultSettingsGithubDark,
-  githubLight: defaultSettingsGithubLight,
-  gruvboxDark: defaultSettingsGruvboxDark,
-  gruvboxLight: defaultSettingsGruvboxLight,
-  kimbie: defaultSettingsKimbie,
-  material: defaultSettingsMaterial,
-  materialDark: defaultSettingsMaterialDark,
-  materialLight: defaultSettingsMaterialLight,
-  monokaiDimmed: defaultSettingsMonokaiDimmed,
-  monokai: defaultSettingsMonokai,
-  noctisLilac: defaultSettingsNoctisLilac,
-  nord: defaultSettingsNord,
-  okaida: defaultSettingsOkaidia,
-  quietlight: defaultSettingsQuietlight,
-  red: defaultSettingsRed,
-  solarizedDark: defaultSettingsSolarizedDark,
-  solarizedLight: defaultSettingsSolarizedLight,
-  sublime: defaultSettingsSublime,
-  tokyoNightDay: defaultSettingsTokyoNightDay,
-  tokyoNightStorm: defaultSettingsTokyoNightStorm,
-  tokyoNight: defaultSettingsTokyoNight,
-  tomorrowNightBlue: defaultSettingsTomorrowNightBlue,
-  vscodeDark: defaultSettingsVscodeDark,
-  whiteDark: defaultSettingsWhiteDark,
-  whiteLight: defaultSettingsWhiteLight,
-  xcodeDark: defaultSettingsXcodeDark,
-  xcodeLight: defaultSettingsXcodeLight,
+  abyss: defaultSettingsAbyss, // no gutterActiveForeground
+  abcdef: defaultSettingsAbcdef, // no gutterActiveForeground
+  androidstudio: defaultSettingsAndroidstudio, // no gutter*
+  andromeda: defaultSettingsAndromeda, // no gutterActiveForeground
+  atomone: defaultSettingsAtomone, // no gutterActiveForeground
+  aura: defaultSettingsAura, // no gutterActiveForeground
+  basicDark: defaultSettingsBasicDark, // no gutterActiveForeground
+  basicLight: defaultSettingsBasicLight, // no gutterActiveForeground
+  bbedit: defaultSettingsBbedit, // no gutterActiveForeground
+  bespin: defaultSettingsBespin, // no gutterActiveForeground
+  consoleDark: defaultSettingsConsoleDark, // full
+  consoleLight: defaultSettingsConsoleLight, // full
+  copilot: defaultSettingsCopilot, // no gutterActiveForeground
+  dracula: defaultSettingsDracula, // no gutterActiveForeground
+  duotoneDark: defaultSettingsDuotoneDark, // no gutterActiveForeground
+  duotoneLight: defaultSettingsDuotoneLight, // no gutterActiveForeground
+  eclipse: defaultSettingsEclipse, // no gutterActiveForeground
+  githubDark: defaultSettingsGithubDark, // no gutter*
+  githubLight: defaultSettingsGithubLight, // no caret, lineHighlight
+  gruvboxDark: defaultSettingsGruvboxDark, // no gutterActiveForeground
+  gruvboxLight: defaultSettingsGruvboxLight, // no gutterActiveForeground
+  kimbie: defaultSettingsKimbie, // no gutterActiveForeground
+  material: defaultSettingsMaterial, // full
+  materialDark: defaultSettingsMaterialDark, // no gutterActiveForeground
+  materialLight: defaultSettingsMaterialLight, // no gutterActiveForeground
+  monokaiDimmed: defaultSettingsMonokaiDimmed, // no gutterActiveForeground
+  monokai: defaultSettingsMonokai, // no gutterActiveForeground
+  noctisLilac: defaultSettingsNoctisLilac, // no gutterActiveForeground
+  nord: defaultSettingsNord, // full
+  okaidia: defaultSettingsOkaidia, // no gutterActiveForeground
+  quietlight: defaultSettingsQuietlight, // no gutterActiveForeground
+  red: defaultSettingsRed, // no gutterActiveForeground
+  solarizedDark: defaultSettingsSolarizedDark, // no gutterActiveForeground
+  solarizedLight: defaultSettingsSolarizedLight, // no gutterActiveForeground
+  sublime: defaultSettingsSublime, // no gutterActiveForeground
+  tokyoNightDay: defaultSettingsTokyoNightDay, // no gutterActiveForeground
+  tokyoNightStorm: defaultSettingsTokyoNightStorm, // no gutterActiveForeground
+  tokyoNight: defaultSettingsTokyoNight, // no gutterActiveForeground
+  tomorrowNightBlue: defaultSettingsTomorrowNightBlue, // no gutterActiveForeground
+  vscodeDark: defaultSettingsVscodeDark, // full
+  whiteDark: defaultSettingsWhiteDark, // no gutterActiveForeground
+  whiteLight: defaultSettingsWhiteLight, // no gutterActiveForeground
+  xcodeDark: defaultSettingsXcodeDark, // no gutter*
+  xcodeLight: defaultSettingsXcodeLight, // no gutterActiveForeground, caret
 };
 
 export default themes;

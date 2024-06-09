@@ -1,0 +1,13 @@
+.comment-popover :global .ant-popover-inner {
+  width: 300px;
+  word-break: break-all;
+}
+
+.comment-text {
+  margin-right: auto;
+  flex-grow: 1;
+
+  // button {
+  //   padding: 0;
+  // }
+}
