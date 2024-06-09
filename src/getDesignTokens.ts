@@ -7,7 +7,8 @@ const getDesignTokens = (theme: Theme): ThemeConfig => {
     token: {
       colorBgBase: themes[theme].background,
       colorTextBase: themes[theme].foreground,
-      colorPrimary: themes[theme].lineHighlight,
+      colorPrimary:
+        themes[theme].lineHighlight ?? themes[theme].gutterForeground,
       fontSize: 16,
     },
     components: {
@@ -15,7 +16,8 @@ const getDesignTokens = (theme: Theme): ThemeConfig => {
         fontSize: 18,
       },
       Popover: {
-        colorBgElevated: themes[theme].lineHighlight,
+        colorBgElevated:
+          themes[theme].lineHighlight ?? themes[theme].gutterForeground,
       },
     },
   };

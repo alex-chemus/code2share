@@ -58,7 +58,10 @@ function App() {
     const root = document.querySelector("#root") as HTMLElement;
     const cmTheme = document.querySelector<HTMLDivElement>(".cm-theme");
     root.style.backgroundColor = themes[theme].background ?? "";
-    if (cmTheme) cmTheme.style.border = `1px solid ${themes[theme].selection}`;
+    if (cmTheme)
+      cmTheme.style.border = `1px solid ${
+        themes[theme].lineHighlight ?? themes[theme].selection
+      }`;
   }, [theme]);
 
   useEffect(() => {
