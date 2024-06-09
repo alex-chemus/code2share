@@ -3,12 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import CodeEditor, { ReactCodeMirrorRef } from "@uiw/react-codemirror";
 import * as alls from "@uiw/codemirror-themes-all";
 import CommentPopover from "./components/CommentPopover/CommentPopover";
-import {
-  useDataToUrl,
-  useDataFromUrl,
-  sameComments,
-  testTheme,
-} from "./App.utils";
+import { useDataToUrl, useDataFromUrl, sameComments } from "./App.utils";
 import { Comment, Lang, Theme } from "./App.types";
 import LineControls from "./components/LineControls/LineControls";
 import "./App.scss";
@@ -53,8 +48,12 @@ function App() {
   }, [location.search]);
 
   useEffect(() => {
-    testTheme(themes[theme]);
+    const root = document.querySelector("#root") as HTMLElement;
+    root.dataset.testid = "root";
+    root.dataset.lang = lang;
+  }, [lang]);
 
+  useEffect(() => {
     const root = document.querySelector("#root") as HTMLElement;
     const cmTheme = document.querySelector<HTMLDivElement>(".cm-theme");
     root.style.backgroundColor = themes[theme].background ?? "";
@@ -62,6 +61,9 @@ function App() {
       cmTheme.style.border = `1px solid ${
         themes[theme].lineHighlight ?? themes[theme].selection
       }`;
+
+    root.dataset.testid = "root";
+    root.dataset.theme = theme;
   }, [theme]);
 
   useEffect(() => {

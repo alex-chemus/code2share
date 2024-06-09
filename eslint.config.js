@@ -4,7 +4,13 @@ import reactRecommended from "eslint-plugin-react/configs/recommended.js";
 
 export default tseslint.config(
   {
-    ignores: ["vite.config.ts", "eslint.config.js", ".eslintrc.cjs"],
+    ignores: [
+      "vite.config.ts",
+      "eslint.config.js",
+      ".eslintrc.cjs",
+      "playwright.config.ts",
+      "tests/*",
+    ],
   },
   js.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,

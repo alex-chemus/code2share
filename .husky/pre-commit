@@ -1,1 +1,1 @@
-npm run eslint && npm run stylelint
+npm run eslint && npm run stylelint && npm run e2e:test
