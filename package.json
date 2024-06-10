@@ -10,6 +10,7 @@
     "eslint": "npx eslint . --max-warnings=2",
     "stylelint": "npx stylelint \"**/*.scss\" --max-warnings=0",
     "prepare": "husky",
+    "unit:test": "vitest run --dir tests/unit",
     "e2e:codegen": "npx playwright codegen http://localhost:5173/",
     "e2e:test": "npx playwright test"
   },
@@ -50,6 +51,7 @@
     "stylelint-config-standard-scss": "^13.1.0",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.11.0",
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+    "vitest": "^1.6.0"
   }
 }
