@@ -8,13 +8,13 @@ values.set("", "eJwDAAAAAAE=");
 values.set("\n", "eJzjAgAACwAL");
 values.set(JSON.stringify({ value: "value" }), "eJyrVipLzClNVbKC0rUANbEF9Q==");
 
-test("compress", () => {
+test("Тестирование функции compress", () => {
   values.forEach((compressed, value) => {
     expect(compress(value)).toBe(compressed);
   });
 });
 
-test("decompress", () => {
+test("Тестирование функции decompress", () => {
   values.forEach((compressed, value) => {
     expect(decompress(compressed)).toBe(value);
   });

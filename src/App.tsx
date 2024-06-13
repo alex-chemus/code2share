@@ -6,7 +6,6 @@ import CommentPopover from "./components/CommentPopover/CommentPopover";
 import { useDataToUrl, useDataFromUrl, sameComments } from "./App.utils";
 import { Comment, Lang, Theme } from "./App.types";
 import LineControls from "./components/LineControls/LineControls";
-import "./App.scss";
 import linesStore from "./stores/LinesStore";
 import ThemeSelect from "./components/ThemeSelect/ThemeSelect";
 import LangsSelect from "./components/LangsSelect/LangsSelect";
@@ -16,16 +15,22 @@ import getDesignTokens from "./getDesignTokens";
 import themes from "./themes";
 import editorStore from "./stores/EditorStore";
 import MainControls from "./components/MainControls/MainControls";
+import "./App.scss";
 
 function App() {
   const location = useLocation();
 
   const editorRef = useRef<ReactCodeMirrorRef | null>(null);
 
+  // Код, отображаемый в редакторе. По умолчанию - пустая строка
   const [value, setValue] = useState("");
+  // Массив комментариев. По умолчанию - пустой массив
   const [comments, setComments] = useState<Comment[]>([]);
+  // Цветовая тема. По умолчанию - material
   const [theme, setTheme] = useState<Theme>("material");
+  // Язык программирования. По умолчанию - C
   const [lang, setLang] = useState<Lang>("c");
+  // Флаг, открыто ли боковое меню. По умолчанию - false
   const [lineControlsOpen, setLineControlsOpen] = useState(false);
 
   const valueToUrl = useDataToUrl();

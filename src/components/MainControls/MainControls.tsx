@@ -32,10 +32,18 @@ export default function MainControls({
   );
 
   const handleShare = () => {
-    navigator.clipboard
-      .writeText(window.location.href)
-      .then(() => messageApi.success("Скопировано!"))
-      .catch((err) => console.error(err));
+    try {
+      const textarea = document.createElement("textarea");
+      textarea.textContent = window.location.href;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      messageApi.success("Скопировано!");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

@@ -10,6 +10,7 @@ export default tseslint.config(
       ".eslintrc.cjs",
       "playwright.config.ts",
       "tests/*",
+      "dist/*",
     ],
   },
   js.configs.recommended,

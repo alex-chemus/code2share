@@ -1,7 +1,7 @@
 import { IconMessage } from "@tabler/icons-react";
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
-import { Button, Popover } from "antd";
+import { Button, Popover, theme } from "antd";
 import { Comment } from "../../App.types";
 import CommentFormContent from "../CommentFormContent/CommentFormContent";
 import editorStore from "../../stores/EditorStore";
@@ -24,6 +24,8 @@ function LineControlsComponent({
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [buttonTop, setButtonTop] = useState(0);
+
+  const { token } = theme.useToken();
 
   useEffect(() => {
     const handleContentScroll = throttle(() => {
@@ -87,6 +89,9 @@ function LineControlsComponent({
       <Popover
         open={isFormOpen}
         overlayClassName="line-controls-form"
+        overlayStyle={{
+          backgroundColor: token.colorBgBase,
+        }}
         placement="right"
         autoAdjustOverflow={false}
         content={<CommentFormContent onSave={handleCommentSave} />}

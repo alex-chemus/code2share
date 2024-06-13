@@ -35,7 +35,7 @@ function CommentFormContentComponent({
         value={commentValue}
         onChange={(e) => setCommentValue(e.target.value)}
       />
-      <Button onClick={handleCommentSave}>Comment</Button>
+      <Button onClick={handleCommentSave}>Сохранить</Button>
     </Flex>
   );
 }

@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview",
     "eslint": "npx eslint . --max-warnings=2",
     "stylelint": "npx stylelint \"**/*.scss\" --max-warnings=0",
     "prepare": "husky",
