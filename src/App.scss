@@ -49,3 +49,18 @@ $height: 100svh;
     justify-content: space-between;
   }
 }
+
+#app-wrapper .unsupported-warning {
+  display: none;
+  text-align: center;
+}
+
+@media (width < 900px) {
+  #app-wrapper > *:not(.unsupported-warning) {
+    display: none;
+  }
+
+  #app-wrapper .unsupported-warning {
+    display: block;
+  }
+}

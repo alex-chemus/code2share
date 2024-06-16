@@ -10,7 +10,7 @@ import linesStore from "./stores/LinesStore";
 import ThemeSelect from "./components/ThemeSelect/ThemeSelect";
 import LangsSelect from "./components/LangsSelect/LangsSelect";
 import { langs } from "@uiw/codemirror-extensions-langs";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, Typography } from "antd";
 import getDesignTokens from "./getDesignTokens";
 import themes from "./themes";
 import editorStore from "./stores/EditorStore";
@@ -121,6 +121,9 @@ function App() {
           path="*"
           element={
             <div id="app-wrapper">
+              <Typography.Title className="unsupported-warning" level={3}>
+                Ваше устройство не поддерживается
+              </Typography.Title>
               <MainControls
                 sidebarOpen={lineControlsOpen}
                 onSidebarChange={setLineControlsOpen}
