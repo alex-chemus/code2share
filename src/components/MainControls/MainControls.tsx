@@ -10,6 +10,8 @@ import s from "./MainControls.module.scss";
 
 const cn = cx.bind(s);
 
+const URL_LIMIT = 2048;
+
 interface MainControlsProps {
   sidebarOpen: boolean;
   onSidebarChange: (open: boolean) => void;
@@ -31,6 +33,18 @@ export default function MainControls({
     [sidebarOpen]
   );
 
+  const showMessage = () => {
+    /* eslint-disable @typescript-eslint/no-floating-promises */
+    if (window.location.href.length > URL_LIMIT) {
+      messageApi.warning(
+        "Ссылка очень длинная! Некоторые браузеры могут некорректно ее обрабатывать"
+      );
+    } else {
+      messageApi.success("Скопировано!");
+    }
+    /* eslint-enable @typescript-eslint/no-floating-promises */
+  };
+
   const handleShare = () => {
     try {
       const textarea = document.createElement("textarea");
@@ -39,8 +53,7 @@ export default function MainControls({
       textarea.select();
       document.execCommand("copy");
       document.body.removeChild(textarea);
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      messageApi.success("Скопировано!");
+      showMessage();
     } catch (err) {
       console.error(err);
     }
